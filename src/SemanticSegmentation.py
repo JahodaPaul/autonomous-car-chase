@@ -132,7 +132,7 @@ class SemanticSegmentation:
                     if k%5 == 1:
                         for l in range(self.size_w):
                             if l%5==1:
-                                if (array[i * self.size_h + k][j * self.size_w + l][2] == 6 or array[i * self.size_h + k][j * self.size_w + l][2] == 7):
+                                if (array[i * self.size_h + k][j * self.size_w + l][2] == 6 or array[i * self.size_h + k][j * self.size_w + l][2] == 7 or array[i * self.size_h + k][j * self.size_w + l][2] == 10):
                                     if not (i * self.size_h + k >= int(obj[2]) and i * self.size_h + k <= int(obj[3]) and j * self.size_w + l >= int(obj[0]) and j * self.size_w + l <= int(obj[1])):
                                         counter += 1
                 if counter >= half_of_pixels:
@@ -212,7 +212,7 @@ class SemanticSegmentation:
                         self.lastNY = self.lastNY[1:]
                     x_Middle = self.exponentialMovingAverageX
                     y_Middle = self.exponentialMovingAverageY
-            y_Middle += self.size_h
+            # y_Middle += self.size_h
             drivableIndexes = self.parse_segm(segmImage=segmImage,obj=[xMin,xMax,yMin,yMax])
 
             closestRectIndex = self.FindClosestRect(x_Middle, y_Middle)

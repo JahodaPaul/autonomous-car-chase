@@ -12,11 +12,11 @@ import numpy as np
 import math
 import copy
 
-carChase = False
-if not carChase:
-    from birdEyeTransform import transform
-    sys.path.append('../MachineLearning/Segmentation/Codes')
-    import segmentator  # noqa: E402
+carChase = True
+# if not carChase:
+#     from birdEyeTransform import transform
+#     sys.path.append('../MachineLearning/Segmentation/Codes')
+#     import segmentator  # noqa: E402
 
 from CarDetector import CarDetector
 from DrivingControl import DrivingControl
@@ -147,7 +147,7 @@ def CarDetection(throttle_SP,steer_SP):
         if img_data is None:
             continue
 
-        predicted_distance, predicted_angle = carDetector.Run(image, True)
+        predicted_distance, predicted_angle = carDetector.Run(image, False)
         logger.info("Distance: " + str(predicted_distance) + " Angle: " + str(predicted_angle))
         logger.info("Analyzed image: "+str(img_path_save))
 
@@ -181,7 +181,7 @@ def ImageAcquisition(zed, mat, runtime_parameters):
         # If grabbing image successfull, save to buffer
         if err == sl.ERROR_CODE.SUCCESS:
 
-            zed.retrieve_image(mat, sl.VIEW.VIEW_SIDE_BY_SIDE)
+            zed.retrieve_image(mat, sl.VIEW.LEFT)#sl.VIEW.VIEW_SIDE_BY_SIDE) #CHANGED
             cntr += 1
             grab_timestamp = str(t1)
             grab_timestamp = grab_timestamp.replace('.', '')  # remove "." due to folder organization
@@ -336,17 +336,17 @@ def main(abs_k=None, depth=True, throttle_SP=None, steer_SP=None):
     print("")
     print("Zed Camera succesfully opened.")
 
-    # Enable positional tracking
-    if depth:
-        transform = sl.Transform()
-        tracking_parameters = sl.TrackingParameters(init_pos=transform)
-        tracking = zed.enable_tracking(tracking_parameters)
-
-        if tracking != sl.ERROR_CODE.SUCCESS:
-            exit()
-
-        print("")
-        print("Tracking succesfully enabled.")
+    # # Enable positional tracking
+    # if depth:
+    #     transform = sl.Transform()
+    #     tracking_parameters = sl.TrackingParameters(init_pos=transform)
+    #     tracking = zed.enable_tracking(tracking_parameters)
+    #
+    #     if tracking != sl.ERROR_CODE.SUCCESS:
+    #         exit()
+    #
+    #     print("")
+    #     print("Tracking succesfully enabled.")
 
     runtime_parameters = sl.RuntimeParameters()
 
@@ -372,24 +372,25 @@ def main(abs_k=None, depth=True, throttle_SP=None, steer_SP=None):
     threads.append(ImageAcquisition_t)
     ImageAcquisition_t.start()
 
-    if depth:
-        # Init and start data acquisition thread
-        DataAcquisiton_t = Thread(target=DataAcquisiton, args=(zed, zed_pose, runtime_parameters))
-        DataAcquisiton_t.daemon = True
-        threads.append(DataAcquisiton_t)
-        DataAcquisiton_t.start()
+    # if depth:
+    #     # Init and start data acquisition thread
+    #     DataAcquisiton_t = Thread(target=DataAcquisiton, args=(zed, zed_pose, runtime_parameters))
+    #     DataAcquisiton_t.daemon = True
+    #     threads.append(DataAcquisiton_t)
+    #     DataAcquisiton_t.start()
 
     # start car detection thread by Pavel Jahoda - for autonomous car chasing
     if carChase:
         car_detection_t = Thread(target=CarDetection,args=(throttle_SP,steer_SP))
+        car_detection_t.daemon = True
         threads.append(car_detection_t)
         car_detection_t.start()
 
     # Init and start image segmentation thread
-    image_segmentation_t = Thread(target=image_segmentation, args=(abs_k, ))
-    image_segmentation_t.daemon = True
-    threads.append(image_segmentation)
-    image_segmentation_t.start()
+    # image_segmentation_t = Thread(target=image_segmentation, args=(abs_k, ))
+    # image_segmentation_t.daemon = True
+    # threads.append(image_segmentation)
+    # image_segmentation_t.start()
 
     try:
         for thread in threads:

@@ -165,7 +165,7 @@ class SemanticSegmentation:
                         self.lastNY = self.lastNY[1:]
                     x_Middle = self.exponentialMovingAverageX
                     y_Middle = self.exponentialMovingAverageY
-            y_Middle += self.size_h
+            # y_Middle += self.size_h
 
             closestRectIndex = self.FindClosestRect(x_Middle, y_Middle)
             tmp = closestRectIndex%10
