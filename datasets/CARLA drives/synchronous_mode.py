@@ -392,6 +392,12 @@ def main(optimalDistance, followDrivenPath, chaseMode, evaluateChasingCar, drive
 
 import os
 if __name__ == '__main__':
+    if os.path.exists(os.path.join('res','results.txt')):
+        cnt = 0
+        while True:
+            cnt += 1
+            if not os.path.exists(os.path.join('res','results'+str(cnt)+'.txt')):
+                os.rename(os.path.join('res','results.txt'),os.path.join('res','results'+str(cnt)+'.txt'))
 
     try:
         optimalDistance = 8
