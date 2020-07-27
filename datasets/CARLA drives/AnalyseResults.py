@@ -72,18 +72,12 @@ class AnalyseResults:
             if drivename in tmp[0]:
                 return float(tmp[1]), float(tmp[2]), float(tmp[3])
 
-def Analyse(dirChasing):
+def Analyse(dirChasing, dirChased, chasedFiles):
     dirChasing = dirChasing
-    dirChased = 'drives'
+    dirChased = dirChased
     analyse = AnalyseResults(dirChasing)
+    chasedFiles = chasedFiles
 
-    # chasedFiles = os.listdir(dirChased)
-    # chasedFiles = ['ride11.p', 'ride12.p', 'ride13.p', 'ride14.p', 'ride15.p', 'ride16.p', 'ride17.p', 'ride18.p','ride19.p', 'ride20.p']
-    chasedFiles = ['ride1.p'] #['ride1.p','ride2.p','ride3.p','ride4.p','ride5.p','ride6.p','ride7.p','ride8.p','ride9.p','ride10.p']
-    # chasedFiles = ['ride1.p', 'ride2.p', 'ride3.p', 'ride4.p', 'ride5.p', 'ride6.p', 'ride7.p', 'ride8.p', 'ride9.p',
-    #               'ride10.p',
-    #                'ride11.p', 'ride12.p', 'ride13.p', 'ride14.p', 'ride15.p', 'ride16.p', 'ride17.p', 'ride18.p',
-    #                'ride19.p', 'ride20.p']
     finished = 0
     percentages = []
     maes = [];
@@ -274,7 +268,7 @@ def main():
 
     PlotTrajectory(dirChased,dirChasing,chasedFiles)
     PlotGraphs(dirChased,dirChasing,chasedFiles)
-    Analyse('chasingTrajectory')
+    Analyse('chasingTrajectory',dirChased,chasedFiles)
 
 
 if __name__ == '__main__':

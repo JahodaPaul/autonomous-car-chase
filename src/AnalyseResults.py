@@ -119,6 +119,9 @@ def AverageSpeed():
                    'ride10.p',
                    'ride11.p', 'ride12.p', 'ride13.p', 'ride14.p', 'ride15.p', 'ride16.p', 'ride17.p', 'ride18.p',
                    'ride19.p', 'ride20.p']
+
+    distances = []
+    seconds = []
     analyse = AnalyseResults(dirChased)
     speeds = []
     for file in chasedFiles:
@@ -137,11 +140,18 @@ def AverageSpeed():
             totalDistMeters += analyse.EuclidianDistance(historyChased[i][0],historyChased[i+1][0],historyChased[i][1],
                                                         historyChased[i+1][1],historyChased[i][2],historyChased[i+1][2])
         totalNumberOfSeconds = float(len(historyChased))/30.0
+        distances.append(totalDistMeters)
+        seconds.append(totalNumberOfSeconds)
         metersPerSecond = totalDistMeters/float(totalNumberOfSeconds)
         kmPerHour = metersPerSecond * 3.6
         speeds.append(kmPerHour)
     print(speeds)
     speeds = np.array(speeds,dtype=float)
+    print('Average distance:', np.mean(distances))
+    print('Average time seconds:', np.mean(seconds))
+
+    print('Median distance:', np.max(distances))
+    print('median time seconds:', np.max(seconds))
     print('AverageSpeed:',np.mean(speeds))
     print('AverageSpeed difficult:',np.mean(speeds[:10]))
     print('AverageSpeed easy:', np.mean(speeds[10:]))
@@ -294,8 +304,8 @@ def PlotPrubehy():
 
 
 def main():
-    PlotPrubehy()
-    exit()
+    # PlotPrubehy()
+    # exit()
     # PlotTrajectory()
     # exit()
     AverageSpeed()
