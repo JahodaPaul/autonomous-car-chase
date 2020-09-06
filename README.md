@@ -6,6 +6,9 @@ The repository presents a system that can autonomously chase another vehicle. Th
 
 ## Videos
 * [Baseline version](https://www.youtube.com/watch?v=SxDJZUTOygA)
+* [Spotlight video](https://www.youtube.com/watch?v=c6xLlD79ttY)
+* [Full ECCV presentation](https://www.youtube.com/watch?v=8aLQ-PvtK_U)
+* [CARLA Car Chasing dataset](https://www.youtube.com/watch?v=2jmg0mVE5eM)
 
 
 ## Main contributions
