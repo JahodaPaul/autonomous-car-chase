@@ -19,7 +19,7 @@ Detection             |  Segmentation 2019
 :-------------------------:|:-------------------------:
 ![detection](https://i.imgur.com/1y7BDH2.png)  |  ![segmentation](https://i.imgur.com/fMWX081.png)
 * Three datasets (CARLA Car Chasing dataset, object detection dataset and semantic segmentation dataset) found in [datasets](/datasets) 
-* Publication at European Conference on Computer Vision (ECCV 2020) ACVR workshop
+* [Publication](http://cmp.felk.cvut.cz/ftp/articles/cech/Jahoda-ECCVw-2020.pdf) at European Conference on Computer Vision (ECCV 2020) ACVR workshop
 
 ## Citations
 Please cite Autonomous Car Chasing paper in your publications if it helps your research.
